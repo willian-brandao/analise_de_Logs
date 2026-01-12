@@ -25,20 +25,69 @@ Todo log contém, pelo menos, um registro de tempo, o sistema de origem, e a des
 ## Exemplos de Entradas de Logs
 
 ### 1. Falha de Autenticação de SSH no Linux
-<img width="908" height="52" alt="image" src="https://github.com/user-attachments/assets/656ab133-902e-4b37-8e6d-277bb2670909" />
 
+```
+Jun 20 18:45:32 ubuntu sshd[2541]: Failed password for root from 192.168.1.23 port 49522 ssh2
+
+```
 * Interpretação - O sistema rejeitou uma tentativa de autenticação para o usuário root conectado no IP 192.168.1.23.
 * Caso de uso - Correlação de múltiplas tentativas falhas de logins para detectar atividade de força bruta.
 
 ### 2. Evento de login no Windows ( Security.evtx, Event ID 4624)
-<img width="898" height="129" alt="image" src="https://github.com/user-attachments/assets/a5474282-1d2b-478b-b461-5f110eae62eb" />
 
+```
+Log Name: Security
+Event ID: 4624
+Logon Type: 10
+Account Name: Administrator
+Source Network Address: 10.0.0.14
+
+```
 * Interpretação: Um login bem sucedido realizado via RDP do IP 10.0.0.4 por uma conta de administrador.
 * Caso de uso: Detecção de acesso RDP não autorizado ou movimento lateral.
 
 ### 3. Log de acesso a servidor web 
 
-<img width="770" height="58" alt="image" src="https://github.com/user-attachments/assets/71c6fbce-8991-4d1f-8f4f-9ac0c3a9c731" />
+```
+192.168.1.50 - - [29/Jun/2025:14:23:42 +0000] "GET /admin HTTP/1.1" 401 487
 
+```
 * Interpretação: Cliente alocado no IP 192.168.1.50 tentou acessar uma área restrita (/admin) e recebeu um erro 401 desautorizando.
-* Caso de Uso 
+* Caso de Uso: Detectar varredura ou ataques de forças brutas em portais de login/admin baseados em web.
+
+### 4. Alertas de IDS (Suricata JSON Format)
+```
+{
+  "timestamp": "2025-06-29T16:21:00.512293Z",
+  "event_type": "alert",
+  "src_ip": "192.168.1.10",
+  "dest_ip": "10.10.1.23",
+  "alert": {
+    "signature": "ET SCAN Nmap -sS Syn Scan",
+    "severity": 2
+  }
+}
+
+```
+* Interpretação: Sistema de detecção de intrusão identificou um escaneamento SYN provavelmente do Nmap.
+* Caso de uso: Triagem de alerta, atribuição de origem, correlação de trigger no SIEM.
+
+## Porque Logs Críticos para o Blue Team?
+
+1. Visibilidade - Logs provêm uma visão direta à atividade do usuário, mudanças de sistema, e ameaças potenciais.
+2. Forense - em relatório de pós incidente, logs frequentemente são a única timeline disponível.
+3. Engenharia de detecção - Todas a regras de detecção se mantém aos padrões baseados em logs.
+4. Compliance e Auditoria - Frameworks Regulatórios como PCI-DSS, HIPAA, e ISO 27001 requerem evidências de logs.
+5. Threat hunting - hipóteses baseados em pesquisas através de logs revelam ataques furtivos.
+
+## Casos de Uso Comuns em Blue Team Envolvendo Logs
+
+| Caso de Uso                                     |                                         | 
+|-------------------------------------------------|-----------------------------------------|
+| Detecção de Ataque de Força Bruta               | Logs de SSH, Evento id 4625 (Windows)   | 
+| Investigação de abuso de privilégio             | Evento id 4672 (Windows), logs sudo     |
+| Detecção de execução de comando suspeito        | Evento id 4688, Sysmon, histórico de bash|
+| Traços de Movimento Lateral                     | logs de RDP, Conexões de SMB, escaneamento de portas|
+| Identificação de vetores de ataques webs        | logs de acesso apache/nginx, logs de waf |
+| Monitores de acesso de arquivos ou exfile       | Logs de integridade de arquivos, Telemetria de EDR |
+
