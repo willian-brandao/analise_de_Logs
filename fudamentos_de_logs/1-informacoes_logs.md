@@ -91,3 +91,12 @@ Source Network Address: 10.0.0.14
 | Identificação de vetores de ataques webs        | logs de acesso apache/nginx, logs de waf |
 | Monitores de acesso de arquivos ou exfile       | Logs de integridade de arquivos, Telemetria de EDR |
 
+## Armadilhas de Registros de Logs para Evitar
+
+* Não ter logs centralizados - Logs armazenados localmente podem ser facilmente apagados por atacantes.
+* Não ter um servidor NTP - Sem ele, a correlação de eventos pode se tornar totalmente irrelacionável.
+* Registro de logs sem estrutura - Tornar a automação e a análise mais difícil.
+* Retenção insuficiente - Análise de histórico torna-se impossível.
+* Muitas informações - Sem filtro, evidências importantes podem ser enterradas.
+
+
