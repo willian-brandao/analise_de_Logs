@@ -1,2 +1,0 @@
-## Introdução 
-Logs de eventos são um dos pilares da visibilidade nos ambientes Microsoft. Todas as atividades relevantes de segurança, assim como autenticação, criação de processo, mudança de privilégio, e conexões remotas, é registrado nativamente pelo sistema operacional. A habilidade para interpretar eventos críticos específicos para detectar ataques como de força bruta, uso de malware, execução de comandos administrativos ou persistência através de escalonamento de privilégio. 
