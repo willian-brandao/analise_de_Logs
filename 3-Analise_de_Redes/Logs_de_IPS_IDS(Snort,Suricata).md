@@ -1,0 +1,23 @@
+## Introdução 
+
+Sistemas de Detecção de Intrusão (IDS) e Sistemas de Prevenção de Intrusão (IPS) são componentes chave nas camadas de estratégia de defesa. Enquanto firewalls focam no controle de tráfego, soluções de IDS/IPS analisam o contexto de tráfego e padrões para ameaças conhecidas ou desconhecidas. 
+
+**IDS**: Detectar e alertar atividade suspeitas porém não as bloqueiam. 
+**IPS**: Bloqueia ativamente ou interrompe tráfego malicioso baseado na lógica de detecção. 
+
+Ferramentas IDS/IPS open-source:
+* Snort(Cisco): Detecção baseada em assinatura.
+* Suricata (OISF): Motor Multithread com capacidade IDS/IPS/NSM.
+* Zeek: Monitoramento de segurança, não focado em assinaturas.
+
+## Entendendo Logs IDS/IPS 
+
+Logs de sistemas IPS/IDS usualmente incluem:
+
+* Timestamp: quando o evento ocorreu.
+* Signature ID: regra que gera o alerta.
+* Source/Destination IP and Ports: IPs de origem e destino, portas de origem e destino.
+* Protocol and packets details: detalhes dos protocolos usados para uma determinada atividade maliciosa.
+* Message/Classification: Pequena descrição da ameaça.
+* Severity/Priority: Severidade da atividade maliciosa.
+
